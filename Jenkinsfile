@@ -15,5 +15,6 @@ pipeline{
 			steps{
 				sh 'cp target/GRRAS1.war /home/krishna/Documents/Devops/apache-tomcat-9.0.93/webapps'
 		}
+			}
 		}
 	}
