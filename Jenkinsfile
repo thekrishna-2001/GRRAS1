@@ -1,20 +1,18 @@
-pipeline{
-	agent any
-	stages{
-		stage(checkout){
-			steps{
-			git 'https://github.com/thekrishna-2001/GRRAS1.git'
-			}
-		}
-		stage(build){
-			steps{
-				sh 'mvn install'
-			}
-		}
-		stage(deploy){
-			steps{
-				sh 'cp target/GRRAS1.war /home/krishna/Documents/Devops/apache-tomcat-9.0.93/webapps'
-		}
-			}
-		}
+pipeline {
+	agent{
+	label 'slave-label'
 	}
+	stages {
+	    stage('Checkout') {
+	        steps {
+			checkout scm			       
+		      }}
+		stage('Build') {
+	           steps {
+			  sh 'JAVA_HOME=/home/grras/slavedir/jdk-11.0.20 /home/grras/slavedir/apache-maven-3.9.4/bin/mvn install'
+	                 }}
+		stage('Deployment'){
+		    steps {
+			sh 'cp target/GRRAS1.war /home/grras/slavedir/apache-tomcat-9.0.79/webapps'
+			}}	
+}}
